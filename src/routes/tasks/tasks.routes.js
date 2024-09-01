@@ -73,7 +73,7 @@ tasksRouter.delete(
         .send({ message: "Task deleted successfully" });
     } catch (error) {
       console.log(error.message);
-      response.status(500).send({ message: "Error deleting task" });
+      response.status(500).send({ message: "Error deleting task." });
     }
   }
 );
@@ -88,7 +88,7 @@ tasksRouter.put("/edit-task/:id", authChecker, async (request, response) => {
     console.log(JSON.stringify(error, null, 2));
 
     if (error?.details?.length) {
-      return response.status(400).send({ message: "All fields are required" });
+      return response.status(400).send({ message: error.message });
     }
 
     const { id } = request.params;
@@ -104,7 +104,7 @@ tasksRouter.put("/edit-task/:id", authChecker, async (request, response) => {
     return response.status(201).send({ message: "Task updated successfully" });
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: "Error updating task" });
+    response.status(500).send({ message: error.message });
   }
 });
 
