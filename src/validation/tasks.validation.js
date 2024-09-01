@@ -4,7 +4,7 @@ import Joi from "joi";
 
 const addTaskSchema = Joi.object({
   title: Joi.string().required(),
-  description: Joi.string().max(100).required(),
+  description: Joi.string().max(300).required(),
   status: Joi.string().required(),
   dueDate: Joi.date().required(),
 });

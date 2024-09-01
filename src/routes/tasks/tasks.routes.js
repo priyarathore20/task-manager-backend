@@ -13,14 +13,12 @@ tasksRouter.get("/", authChecker, async (req, response) => {
   try {
     let userId = req?.user?.id;
     const users = await Tasks.find({ addedBy: userId });
-    console.log("fetched users");
     return response.status(200).json({
       count: users.length,
       data: users,
     });
   } catch (error) {
-    console.log("error fetching");
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: "Error fetching Tasks" });
   }
 });
 
@@ -36,7 +34,7 @@ tasksRouter.post("/add-task", authChecker, async (request, response) => {
     console.log(JSON.stringify(error, null, 2));
 
     if (error?.details?.length) {
-      return response.status(400).send({ message: error.message });
+      return response.status(400).send({ message: "All fields are required" });
     }
 
     const newTask = {
@@ -53,7 +51,7 @@ tasksRouter.post("/add-task", authChecker, async (request, response) => {
     return response.status(201).send(task);
   } catch (error) {
     console.log("error creating:", error);
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: "Error creating task" });
   }
 });
 
@@ -75,7 +73,7 @@ tasksRouter.delete(
         .send({ message: "Task deleted successfully" });
     } catch (error) {
       console.log(error.message);
-      response.status(500).send({ message: error.message });
+      response.status(500).send({ message: "Error deleting task" });
     }
   }
 );
@@ -90,7 +88,7 @@ tasksRouter.put("/edit-task/:id", authChecker, async (request, response) => {
     console.log(JSON.stringify(error, null, 2));
 
     if (error?.details?.length) {
-      return response.status(400).send({ message: error.message });
+      return response.status(400).send({ message: "All fields are required" });
     }
 
     const { id } = request.params;
@@ -106,7 +104,7 @@ tasksRouter.put("/edit-task/:id", authChecker, async (request, response) => {
     return response.status(201).send({ message: "Task updated successfully" });
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: "Error updating task" });
   }
 });
 
