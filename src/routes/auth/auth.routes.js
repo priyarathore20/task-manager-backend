@@ -11,15 +11,11 @@ const authRouter = express.Router();
 
 // Function to generate JWT
 function generateToken(user) {
-  const { _id, phoneNumber, email, gender, name } = user;
+  const { _id, phoneNumber, email, name } = user;
 
-  return jwt.sign(
-    { id: _id, phoneNumber, email, gender, name },
-    "jdhgcjsojwh",
-    {
-      expiresIn: "6d",
-    }
-  );
+  return jwt.sign({ id: _id, phoneNumber, email, name }, "jdhgcjsojwh", {
+    expiresIn: "6d",
+  });
 }
 
 // To create a user
@@ -33,7 +29,7 @@ authRouter.post("/signup", async (req, res) => {
     if (error?.details?.length) {
       return res.status(400).send({ message: error.message });
     }
-    const { name, email, password, gender, phoneNumber } = req.body;
+    const { name, email, password, phoneNumber } = req.body;
     const existUser = await Users.findOne({ email: email });
     if (existUser) {
       return res
@@ -52,7 +48,6 @@ authRouter.post("/signup", async (req, res) => {
       email,
       phoneNumber,
       name,
-      gender,
       password: hashedPassword,
     });
 
@@ -103,5 +98,3 @@ authRouter.post("/login", async (req, res) => {
 });
 
 export default authRouter;
-
-// route get('/user');

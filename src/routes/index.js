@@ -1,10 +1,10 @@
 import { Router } from "express";
 import authRouter from "./auth/auth.routes.js";
-import tasksRouter from "./tasks/tasks.routes.js";
+import paymentRouter from "./payments/payment.routes.js";
 
 const router = Router();
 
-router.use("/api/tasks", tasksRouter);
-router.use("/api/auth", authRouter);
+router.use("/auth", authRouter);
+router.use("/payment", paymentRouter);
 
 export default router;
