@@ -18,6 +18,38 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    gender: {
+      type: String,
+      required: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const TaskSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+    dueDate: {
+      type: String,
+      required: true,
+    },
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -25,3 +57,4 @@ const UserSchema = mongoose.Schema(
 );
 
 export const Users = mongoose.model("Users", UserSchema);
+export const Tasks = mongoose.model("Tasks", TaskSchema);
