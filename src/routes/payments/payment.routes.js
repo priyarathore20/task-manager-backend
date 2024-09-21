@@ -41,7 +41,7 @@ paymentRouter.post("/verify", (req, res) => {
   if (expectedSignature === razorpay_signature) {
     res.status(200).json({ message: "Payment verified successfully!" });
   } else {
-    res.status(400).json({ message: "Invalid signature" });
+    res.status(400).json({ message: "Invalid signature!" });
   }
 });
 
